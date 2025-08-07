@@ -4,23 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Yulis Cargo</title>
+    <title>@yield('title','Yulis Cargo')</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <meta name="google-site-verification" content="6zUkNxT2ijTrJCuyhUThUx5ThhnSg9DRikfAqUujfgQ" />
-
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-    <script type="module" src="https://cdn.jsdelivr.net/gh/domyid/tracker@main/index.js"></script>
-
-    <!-- Font Awesome --> 
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <script type="module" src="https://cdn.jsdelivr.net/gh/domyid/tracker@main/index.js"></script>
-
+    <link rel="icon" href="images/logo.png" type="image/x-icon" />
     <style>
         :root {
             --clr-dark-navy: #1B3A57;
@@ -38,6 +33,9 @@
         /* Navbar */
         .navbar {
             background-color: var(--clr-dark-navy) !important;
+            z-index: 1100 !important;
+            position: sticky;
+            top: 0;
         }
 
         .navbar .nav-link,
@@ -52,13 +50,29 @@
 
         /* CTA Bar */
         #cta-bar {
-            display: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            min-height: 64px;
+            padding: 12px 1rem;
             background-color: var(--clr-orange);
             color: var(--clr-white);
-            position: sticky;
+            position: fixed;
             top: 56px;
-            /* di bawah navbar */
-            z-index: 1020;
+            left: 0;
+            width: 100%;
+            z-index: 1040;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: top 0.3s;
+        }
+
+        #cta-bar .btn {
+            margin-left: 0.5rem;
+        }
+
+        body.cta-active main {
+            margin-top: 48px;
         }
 
         #cta-bar .btn {
@@ -128,6 +142,7 @@
 
         .dropdown-menu {
             opacity: 0;
+            z-index: 1200 !important;
         }
 
         /* Footer */
@@ -151,7 +166,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 <i class="fas fa-box-open"></i> Yulis Cargo
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
@@ -162,9 +177,9 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <!-- Order -->
                     <li class="nav-item dropdown mx-2">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        {{-- <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="fas fa-shopping-cart"></i> Order
-                        </a>
+                        </a> --}}
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Pick Up</a></li>
                             <li><a class="dropdown-item" href="#">Drop Off</a></li>
@@ -173,44 +188,46 @@
                     <!-- Search -->
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-search"></i> Search
+                            <i class="fas fa-search"></i> Pencarian
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Trace & Track</a></li>
-                            <li><a class="dropdown-item" href="#">Shipping Rates</a></li>
-                            <li><a class="dropdown-item" href="#">Find Drop Point</a></li>
+                            <li><a class="dropdown-item" href="{{ route('trace-track') }}">Trace & Track</a></li>
+                            <li><a class="dropdown-item" href="{{ route('shipping-rates') }}">Shipping Rates</a></li>
+                            <li><a class="dropdown-item" href="{{ route('drop-point') }}">Find Drop Point</a></li>
                         </ul>
                     </li>
-                    <!-- Services -->
+                    <!-- Layanan -->
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="#"><i class="fas fa-truck"></i> Services</a>
+                        <a class="nav-link" href="{{ route('layanan') }}"><i class="fas fa-truck"></i> Layanan</a>
                     </li>
                     <!-- Information -->
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-info-circle"></i> Information
+                            <i class="fas fa-info-circle"></i> Informasi
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">FAQ</a></li>
-                            <li><a class="dropdown-item" href="#">Packaging Information</a></li>
-                            <li><a class="dropdown-item" href="#">Terms</a></li>
+                            <li><a class="dropdown-item" href="{{ route('faq') }}">FAQ</a></li>
+                            <li><a class="dropdown-item" href="{{ route('packaging-info') }}">Packaging Information</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('terms') }}">Terms</a></li>
                         </ul>
                     </li>
                     <!-- About Us -->
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-users"></i> About Us
+                            <i class="fas fa-users"></i> Tentang Kami
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Company Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                            <li><a class="dropdown-item" href="{{ route('company-profile') }}">Company Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('contact-us') }}">Contact Us</a></li>
                         </ul>
                         <!-- LogIn -->
-                    <!-- <li class="nav-item dropdown mx-2">
-                        <a class="nav-link" href="login.html" role="button" data-bs-toggle="dropdown">
+                        {{--
+                    <li class="nav-item mx-2">
+                        <a class="nav-link" href="{{ route('login') }}">
                             <i class="fa-solid fa-right-to-bracket"></i> Log In
                         </a>
-                    </li> -->
+                    </li> --}}
                 </ul>
             </div>
         </div>
@@ -219,181 +236,81 @@
     <!-- Sticky CTA Bar -->
     <div id="cta-bar" class="text-center py-2">
         <span class="fw-bold me-3">Siap Kirim Barangmu Sekarang?</span>
-        <a href="#" class="btn btn-light btn-sm">Buat Order</a>
+        <a href="{{ route('order.form') }}" class="btn btn-light btn-sm">Buat Order</a>
     </div>
 
     <!-- Main Content -->
-    <section class="hero">
-        <div class="container" data-aos="zoom-in">
-            <h1 class="display-3 fw-bold">Yulis Cargo</h1>
-            <p class="lead mb-4">
-                Ekspedisi Cepat & Terpercaya via
-                <strong>Darat</strong>, <strong>Laut</strong>, & <strong>Udara</strong>.
-            </p>
-            <a href="#" class="btn btn-primary btn-lg mx-1">
-                <i class="fas fa-box-open"></i> Lacak Paket
-            </a>
-            <a href="#" class="btn btn-outline-light btn-lg mx-1">
-                <i class="fas fa-calculator"></i> Cek Tarif
-            </a>
-        </div>
-    </section>
-
-    <!-- Services -->
-    <section class="py-5 bg-services">
-        <div class="container">
-            <h2 class="text-center mb-5" data-aos="fade-up">Layanan Kami</h2>
-            <div class="row g-4">
-                <!-- Darat -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-                    <div class="card service-card h-100 text-center p-4">
-                        <i class="fas fa-truck fa-2x mb-3" style="color:var(--clr-orange)"></i>
-                        <h5>Darat</h5>
-                        <p>Hemat & cepat antarkota</p>
-                    </div>
-                </div>
-                <!-- Laut -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card service-card h-100 text-center p-4">
-                        <i class="fas fa-ship fa-2x mb-3" style="color:var(--clr-orange)"></i>
-                        <h5>Laut</h5>
-                        <p>Volume besar antar pulau</p>
-                    </div>
-                </div>
-                <!-- Udara -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-                    <div class="card service-card h-100 text-center p-4">
-                        <i class="fas fa-plane fa-2x mb-3" style="color:var(--clr-orange)"></i>
-                        <h5>Udara</h5>
-                        <p>Super cepat prioritas tinggi</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Feature Highlights -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-4" data-aos="fade-up">Kenapa Pilih Kami?</h2>
-            <div class="row text-center g-4">
-                <div class="col-sm-6 col-lg-3" data-aos="zoom-in">
-                    <i class="fas fa-shield-alt fa-2x mb-2" style="color:var(--clr-mid-blue)"></i>
-                    <h6>Aman & Terlacak</h6>
-                    <p class="small text-muted">Lacak real-time lewat SMS/Email.</p>
-                </div>
-                <div class="col-sm-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
-                    <i class="fas fa-dollar-sign fa-2x mb-2" style="color:var(--clr-mid-blue)"></i>
-                    <h6>Harga Transparan</h6>
-                    <p class="small text-muted">Tanpa biaya tersembunyi.</p>
-                </div>
-                <div class="col-sm-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
-                    <i class="fas fa-clock fa-2x mb-2" style="color:var(--clr-mid-blue)"></i>
-                    <h6>Jemput Cepat</h6>
-                    <p class="small text-muted">Pickup dalam 24 jam setelah order.</p>
-                </div>
-                <div class="col-sm-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
-                    <i class="fas fa-thumbs-up fa-2x mb-2" style="color:var(--clr-mid-blue)"></i>
-                    <h6>Dijamin Puas</h6>
-                    <p class="small text-muted">Refund atau kirim ulang jika bermasalah.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonial Carousel -->
-    <!-- <section class="py-5" style="background-color:var(--clr-lilac);">
-        <div class="container">
-            <h2 class="text-center mb-4" data-aos="fade-up" style="color:var(--clr-dark-navy)">
-                Apa Kata Mereka
-            </h2>
-
-            <div class="row justify-content-center">
-                <div class="col-md-8" data-aos="fade-up" data-aos-delay="200">
-                    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner text-center">
-                            <div class="carousel-item active">
-                                <p class="fs-5 fst-italic text-dark">“Pengiriman super cepat dan aman!”</p>
-                                <strong class="d-block mt-3 text-primary">Andi, Jakarta</strong>
-                            </div>
-                            <div class="carousel-item">
-                                <p class="fs-5 fst-italic text-dark">“Harga transparan, stafnya sangat membantu.”</p>
-                                <strong class="d-block mt-3 text-primary">Sari, Surabaya</strong>
-                            </div>
-                            <div class="carousel-item">
-                                <p class="fs-5 fst-italic text-dark">“Tracking real-time bikin tenang!”</p>
-                                <strong class="d-block mt-3 text-primary">Budi, Medan</strong>
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Newsletter -->
-    <!-- <section class="py-5 text-white text-center" style="background-color:var(--clr-mid-blue);">
-        <div class="container" data-aos="zoom-in">
-            <h5 class="mb-3">Dapatkan Promo & Info Terbaru</h5>
-            <form class="row justify-content-center g-2">
-                <div class="col-sm-6">
-                    <input type="email" class="form-control" placeholder="Masukkan email kamu" required>
-                </div>
-                <div class="col-sm-auto">
-                    <button class="btn btn-light">Subscribe</button>
-                </div>
-            </form>
-        </div>
-    </section> -->
-
-    <!-- Trust Badges -->
-    <!-- <section class="py-4">
-        <div class="container text-center">
-            <p class="mb-3">Dipercaya oleh:</p>
-            <img src="/images/logo1.png" class="mx-3" height="40" alt="Partner 1">
-            <img src="/images/logo2.png" class="mx-3" height="40" alt="Partner 2">
-            <img src="/images/logo3.png" class="mx-3" height="40" alt="Partner 3">
-        </div>
-    </section> -->
+    <main>
+        @yield('content')
+    </main>
 
     <!-- Footer -->
-    <footer class="py-5">
+    <footer class="py-5" style="background-color: var(--clr-dark-navy); color: var(--clr-white);">
         <div class="container">
-            <div class="row">
+            <div class="row g-4 d-flex align-items-start">
                 <!-- Kontak -->
-                <div class="col-md-4 mb-3">
-                    <h6>Kontak Kami</h6>
-                    <p>Jl. Soekarno-Hatta No.187 b, Babakan Ciparay, Kec. Babakan Ciparay, <br>Kota Bandung, Jawa Barat
-                        40223<br>0852-9478-7674</p>
+                <div class="col-md-4 d-flex flex-column align-items-start">
+                    <h6 class="fw-bold mb-3">Kontak Kami</h6>
+                    <p class="mb-1">Jl. Soekarno-Hatta No.187 b, Babakan Ciparay,<br>
+                        Kec. Babakan Ciparay, Kota Bandung, Jawa Barat 40223<br>
+                        0852-9478-7674</p>
                 </div>
                 <!-- Link Cepat -->
-                <div class="col-md-4 mb-3">
-                    <h6>Link Cepat</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Lacak Paket</a></li>
-                        <li><a href="#">Cek Tarif</a></li>
-                        <li><a href="#">FAQ</a></li>
+                <div class="col-md-4 d-flex flex-column align-items-center">
+                    <h6 class="fw-bold mb-3">Link Cepat</h6>
+                    <ul class="list-unstyled text-center mb-0">
+                        <li><a href="{{ route('trace-track') }}" class="footer-link">Lacak Paket</a></li>
+                        <li><a href="{{ route('shipping-rates') }}" class="footer-link">Cek Tarif</a></li>
+                        <li><a href="{{ route('faq') }}" class="footer-link">FAQ</a></li>
+                        <li><a href="{{ route('packaging-info') }}" class="footer-link">Packaging Info</a></li>
+                        <li><a href="{{ route('terms') }}" class="footer-link">Terms</a></li>
                     </ul>
                 </div>
                 <!-- Sosial -->
-                <div class="col-md-4 text-md-end">
-                    <h6>Ikuti Kami</h6>
-                    <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                <div class="col-md-4 d-flex flex-column align-items-end">
+                    <h6 class="fw-bold mb-3">Ikuti Kami</h6>
+                    <div>
+                        <a href="#" class="me-2 footer-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-2 footer-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-link"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
             </div>
-            <hr class="border-light">
-            <p class="text-center small mb-0">&copy; 2025 Yulis Cargo</p>
+            <hr class="border-light my-4">
+            <p class="text-center small mb-0">&copy; {{ date('Y') }} Yulis Cargo</p>
         </div>
+        <style>
+            .footer-link {
+                color: var(--clr-peach);
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+
+            .footer-link:hover {
+                color: var(--clr-orange);
+                text-decoration: underline;
+            }
+
+            footer ul {
+                padding-left: 0;
+            }
+
+            footer ul li {
+                margin-bottom: 0.3rem;
+            }
+
+            @media (max-width: 767px) {
+
+                .footer-link,
+                .fw-bold {
+                    text-align: left !important;
+                }
+
+                .col-md-4.d-flex {
+                    align-items: flex-start !important;
+                }
+            }
+        </style>
     </footer>
 
     <!-- Bootstrap JS + AOS -->
@@ -403,9 +320,17 @@
         AOS.init({ duration: 800, once: true });
         // Sticky CTA
         const ctaBar = document.getElementById('cta-bar');
-        window.addEventListener('scroll', () => {
-            ctaBar.style.display = window.scrollY > 200 ? 'block' : 'none';
-        });
+        function updateCtaBar() {
+            if (window.scrollY > 200) {
+                ctaBar.style.display = 'flex';
+                document.body.classList.add('cta-active');
+            } else {
+                ctaBar.style.display = 'none';
+                document.body.classList.remove('cta-active');
+            }
+        }
+        window.addEventListener('scroll', updateCtaBar);
+        window.addEventListener('DOMContentLoaded', updateCtaBar);
     </script>
 </body>
 
