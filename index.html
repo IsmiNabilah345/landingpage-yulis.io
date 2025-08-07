@@ -240,9 +240,83 @@
     </div>
 
     <!-- Main Content -->
-    <main>
-        @yield('content')
-    </main>
+    <section class="hero">
+        <div class="container" data-aos="zoom-in">
+            <h1 class="display-3 fw-bold">Yulis Cargo</h1>
+            <p class="lead mb-4">
+                Ekspedisi Cepat & Terpercaya via
+                <strong>Darat</strong>, <strong>Laut</strong>, & <strong>Udara</strong>.
+            </p>
+            <a href="{{ route('trace-track') }}" class="btn btn-primary btn-lg mx-1">
+                <i class="fas fa-box-open"></i> Lacak Paket
+            </a>
+            <a href="{{ route('shipping-rates') }}" class="btn btn-outline-light btn-lg mx-1">
+                <i class="fas fa-calculator"></i> Cek Tarif
+            </a>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="py-5 bg-services">
+        <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-up">Layanan Kami</h2>
+            <div class="row g-4">
+                <!-- Darat -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="card service-card h-100 text-center p-4">
+                        <i class="fas fa-truck fa-2x mb-3" style="color:var(--clr-orange)"></i>
+                        <h5>Darat</h5>
+                        <p>Hemat & cepat antarkota</p>
+                    </div>
+                </div>
+                <!-- Laut -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card service-card h-100 text-center p-4">
+                        <i class="fas fa-ship fa-2x mb-3" style="color:var(--clr-orange)"></i>
+                        <h5>Laut</h5>
+                        <p>Volume besar antar pulau</p>
+                    </div>
+                </div>
+                <!-- Udara -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card service-card h-100 text-center p-4">
+                        <i class="fas fa-plane fa-2x mb-3" style="color:var(--clr-orange)"></i>
+                        <h5>Udara</h5>
+                        <p>Super cepat prioritas tinggi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Highlights -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4" data-aos="fade-up">Kenapa Pilih Kami?</h2>
+            <div class="row text-center g-4">
+                <div class="col-sm-6 col-lg-3" data-aos="zoom-in">
+                    <i class="fas fa-shield-alt fa-2x mb-2" style="color:var(--clr-mid-blue)"></i>
+                    <h6>Aman & Terlacak</h6>
+                    <p class="small text-muted">Lacak real-time lewat SMS/Email.</p>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-dollar-sign fa-2x mb-2" style="color:var(--clr-mid-blue)"></i>
+                    <h6>Harga Transparan</h6>
+                    <p class="small text-muted">Tanpa biaya tersembunyi.</p>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-clock fa-2x mb-2" style="color:var(--clr-mid-blue)"></i>
+                    <h6>Jemput Cepat</h6>
+                    <p class="small text-muted">Pickup dalam 24 jam setelah order.</p>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-thumbs-up fa-2x mb-2" style="color:var(--clr-mid-blue)"></i>
+                    <h6>Dijamin Puas</h6>
+                    <p class="small text-muted">Refund atau kirim ulang jika bermasalah.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="py-5" style="background-color: var(--clr-dark-navy); color: var(--clr-white);">
@@ -277,7 +351,7 @@
                 </div>
             </div>
             <hr class="border-light my-4">
-            <p class="text-center small mb-0">&copy; {{ date('Y') }} Yulis Cargo</p>
+            <p class="text-center small mb-0">&copy; 2025 Yulis Cargo</p>
         </div>
         <style>
             .footer-link {
